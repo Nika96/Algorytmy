@@ -54,19 +54,22 @@ void SortedLinkedList::push(int x) {
 	//jesli lista nie jest pusta
 	if(p != NULL) {
 		while(p->next) {
-			if(n->prev > n->x){
-				p = p->next;
-				n->x = head;
+			if(p->x >= x){
+			/*	p = p->next;
+				n->x = head; */
 			}
-			if(p == n->x) {
-
+			if(p->x < x) {
+				p->x = p; //pierwszy wiekszy to p
+				//n->x = x;
+				n->next = p; //nastepny dla n przypisujemy p
+				n->prev = p->prev; //poprzedni dla n to p
+				p->prev = n->prev; //poprzedni dla p to n
+				n->x = x;
 			}
-			if() {
-
-			}
-		p=p->next; // do konca lisy
+			p=p->next; // do konca lisy	
 		}
-	}	
+	}
+}	
 
 /*	node *p, *n;
     n = new node; //stworzenie nowego elementu
@@ -79,8 +82,8 @@ void SortedLinkedList::push(int x) {
         n->prev = p;
     }
     else head = n; //w sytuacji gdy lista byla pusta
-}*/
 }
+}*/
 
 void SortedLinkedList::print() {
 	node *p;
