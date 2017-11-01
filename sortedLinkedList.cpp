@@ -55,41 +55,23 @@ void SortedLinkedList::push(int x) {
 	if(p != NULL) {
 		while(p->next) {
 			if(p->x >= x){
-			/*	p = p->next;
-				n->x = head; */
+				p->next = n->next;
+				n->prev = p->prev;
+				n->x =  x;
 			}
 			if(p->x < x) {
-				p->x = p; //pierwszy wiekszy to p
-				//n->x = x;
-				n->next = p; //nastepny dla n przypisujemy p
-				n->prev = p->prev; //poprzedni dla n to p
-				p->prev = n->prev; //poprzedni dla p to n
-				n->x = x;
+
 			}
 			p=p->next; // do konca lisy	
 		}
 	}
 }	
 
-/*	node *p, *n;
-    n = new node; //stworzenie nowego elementu
-    n->next = NULL; //koniec listy
-    n->x = x; //przechowuje podana wartosc
-    p = head;
-    if(p!= NULL){ //jesli lista nie jest pusta
-        while(p->next) p = p->next; //szuka konca listy
-        p->next = n; //wstawienie na koniec zamiast NULL
-        n->prev = p;
-    }
-    else head = n; //w sytuacji gdy lista byla pusta
-}
-}*/
-
 void SortedLinkedList::print() {
 	node *p;
     p = head;
     while(p){
-        cout << p->x << endl ;
+        cout << p->x << endl;
         p = p->next;
     }
 }
