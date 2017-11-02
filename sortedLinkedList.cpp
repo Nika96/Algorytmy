@@ -17,7 +17,19 @@ public:
     void push(int x); // Wstawia element 'x'
     int pop(); // Zwraca i usuwa pierwszy (najmniejszy) element
     int erase(int i); // Usuwa element na pozycji 'i' i zwraca jego wartość
-    int find(int x); // Zwraca pozycję elementu o wartości 'x' lub -1 gdy nie znaleziono
+    node *find(int x) {
+    	node *tmp = head;
+
+        while (tmp!=nullptr) //dopóki tmp nie wskazuje na ostatni rekord listy}
+        {
+            if (tmp->x == x)
+                return tmp;
+
+            tmp=tmp->next;
+        }
+        cout<<"nie istnieje"<<endl;
+        return nullptr; //zwraca ENDL, jeśli wcześniej nie został znaleziony rekord z elementem x
+    }
     int size(); // Zwraca liczbę elementów w liście
     void remove(int x); // Usuwa wszystkie elementy równe 'x'
     static SortedLinkedList merge(const SortedLinkedList&a, const SortedLinkedList& b);
@@ -49,13 +61,18 @@ void SortedLinkedList::push(int x) {
 	//gdy lista jest pusta
 	if(n->next == NULL && n->prev == NULL) {
 		n->x = x;
+		head = n;
 		return;
 	}
 
 	//jesli lista nie jest pusta
 	if(p != NULL) {
+		if(p->x < x) {
+			n = head;
+		}
 		while(p->next) {
 			if(p->x >= x){
+<<<<<<< HEAD
 				// p->next = n->next;
 				// n->prev = p->prev;
 				// n->x =  x;
@@ -64,6 +81,13 @@ void SortedLinkedList::push(int x) {
 			cout<<p->x<<" "<<x<<endl;
 			if(p->x < x) {
 
+=======
+				n->prev = p->prev;
+				p->prev->next = n;
+				p->prev = n;
+				n->next = p;
+				//n->x = x;
+>>>>>>> fd01a7bb503f0150eaddb03916220dd1a9ccecdf
 			}
 			p=p->next; // do konca lisy
 		}
