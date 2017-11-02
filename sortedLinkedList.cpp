@@ -52,7 +52,6 @@ SortedLinkedList::~SortedLinkedList(){
 
 void SortedLinkedList::push(int x) {
 
-
 	node *p, *n;
 	n = new node;
 	n->x = x; //przechowuje podana wartosc
@@ -81,7 +80,6 @@ void SortedLinkedList::push(int x) {
 				p->prev->next = n;
 			 	p->prev = n;
 			 	n->next = p;
-			//	n->x = p->x;
 
 				cout<<"znaleziono: "<<p->x<<endl;
 			//	break;
@@ -92,6 +90,10 @@ void SortedLinkedList::push(int x) {
 			p=p->next; // do konca lisy
 		}
 	}
+}
+
+int SortedLinkedList::pop() {
+
 }
 
 void SortedLinkedList::print() {
@@ -123,7 +125,6 @@ int main() {
 	// sorted.push(2443);
 	// sorted.print();
 	// cout << sorted.size() << endl;
-
 
 	// build model to test our methods.
 
