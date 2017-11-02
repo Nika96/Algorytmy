@@ -67,7 +67,8 @@ void SortedLinkedList::push(int x) {
 	//jesli lista nie jest pusta
 	if(p != NULL) {
 		if(p->x < x) {
-			n = head;
+			n->x = x;
+			head = n;
 		}
 		while(p->next) {
 			if(p->x >= x){
@@ -75,7 +76,7 @@ void SortedLinkedList::push(int x) {
 				p->prev->next = n;
 				p->prev = n;
 				n->next = p;
-				//n->x = x;
+				n->x = x;
 			}
 			p=p->next; // do konca lisy	
 		}
@@ -108,7 +109,6 @@ int main() {
 	sorted.push(10);
 	sorted.push(20);
 	sorted.push(2443);
-	sorted.push(1);
 	sorted.print();
 	cout << sorted.size() << endl;
 }
