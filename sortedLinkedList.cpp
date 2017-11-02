@@ -53,7 +53,7 @@ SortedLinkedList::~SortedLinkedList(){
 void SortedLinkedList::push(int x) {
 
 	node *p, *n;
-	//n = new node;
+	n = new node;
 	n->x = x; //przechowuje podana wartosc
 	p = head;
 
@@ -67,28 +67,30 @@ void SortedLinkedList::push(int x) {
 
 	//jesli lista nie jest pusta
 	if(p != NULL) {
-		if(p->x < x) {
+		/*if(p->x < x) {
 			n = head;
-		}
+		}*/
 		while(p->next) {
 			if(p->x >= x){
-<<<<<<< HEAD
+				n->prev = p->prev;
+				p->prev->next = n;
+				p->prev = n;
+				n->next = p;
+				break;
 				// p->next = n->next;
 				// n->prev = p->prev;
 				// n->x =  x;
 
 			}
-			cout<<p->x<<" "<<x<<endl;
-			if(p->x < x) {
-
-=======
-				n->prev = p->prev;
-				p->prev->next = n;
-				p->prev = n;
-				n->next = p;
-				//n->x = x;
->>>>>>> fd01a7bb503f0150eaddb03916220dd1a9ccecdf
-			}
+			//cout<<p->x<<" "<<x<<endl;
+			// if(p->x < x) {
+			//
+			// 	n->prev = p->prev;
+			// 	p->prev->next = n;
+			// 	p->prev = n;
+			// 	n->next = p;
+			// 	//n->x = x;
+			// }
 			p=p->next; // do konca lisy
 		}
 	}
@@ -158,8 +160,9 @@ int main() {
 
 	cout<<"data writing succesfull!"<<endl;
 	//test for our function
-
-	sorted.push(4); // should find 5 becasue 5 is first bigger than 4
+	sorted.print();
+	sorted.push(2); // should find 5 becasue 5 is first bigger than 4
+	sorted.print();
 
 
 
