@@ -8,7 +8,7 @@ public:
         node* next;     // Wskaźnik do kolejnego węzła
         node* prev;     // Wskaźnik do poprzedniego węzła
     };
-  
+
     node* head;        // Wskaźnik do pierwszego węzła
    // int size;           // Ew. rozmiar listy
 
@@ -53,10 +53,11 @@ SortedLinkedList::~SortedLinkedList(){
 void SortedLinkedList::push(int x) {
 
 	node *p, *n;
-	n = new node;
+	//n = new node;
 	n->x = x; //przechowuje podana wartosc
 	p = head;
-	
+
+
 	//gdy lista jest pusta
 	if(n->next == NULL && n->prev == NULL) {
 		n->x = x;
@@ -71,16 +72,27 @@ void SortedLinkedList::push(int x) {
 		}
 		while(p->next) {
 			if(p->x >= x){
+<<<<<<< HEAD
+				// p->next = n->next;
+				// n->prev = p->prev;
+				// n->x =  x;
+
+			}
+			cout<<p->x<<" "<<x<<endl;
+			if(p->x < x) {
+
+=======
 				n->prev = p->prev;
 				p->prev->next = n;
 				p->prev = n;
 				n->next = p;
 				//n->x = x;
+>>>>>>> fd01a7bb503f0150eaddb03916220dd1a9ccecdf
 			}
-			p=p->next; // do konca lisy	
+			p=p->next; // do konca lisy
 		}
 	}
-}	
+}
 
 void SortedLinkedList::print() {
 	node *p;
@@ -105,10 +117,52 @@ int SortedLinkedList::size(){
 int main() {
 
 	SortedLinkedList sorted;
-	sorted.push(10);
-	sorted.push(20);
-	sorted.push(2443);
-	sorted.push(1);
-	sorted.print();
-	cout << sorted.size() << endl;
+
+	// build model to test our methods.
+
+
+	SortedLinkedList::node *a = new SortedLinkedList::node;
+	SortedLinkedList::node *b = new SortedLinkedList::node;
+	SortedLinkedList::node *c = new SortedLinkedList::node;
+	SortedLinkedList::node *d = new SortedLinkedList::node;
+	SortedLinkedList::node *e = new SortedLinkedList::node;
+	SortedLinkedList::node *f = new SortedLinkedList::node;
+
+	a->prev = nullptr;
+	a->next = b;
+	sorted.head = a;
+	b->prev = a;
+	b->next = c;
+	c->prev = b;
+	c->next = d;
+	d->prev = c;
+	d->next = e;
+	e->prev = d;
+	e->next = f;
+	f->prev = e;
+	f->next = nullptr;
+
+	cout<<"model created succesfully!"<<endl;
+
+	//cout<<sorted.head->x<<endl;
+
+	cout<<"data writing:"<<endl;
+
+	a->x = 1;
+	b->x = 2;
+	c->x = 3;
+	d->x = 4;
+	e->x = 5;
+	f->x = 6;
+	// end of model
+
+	cout<<"data writing succesfull!"<<endl;
+	//test for our function
+
+	sorted.push(4); // should find 5 becasue 5 is first bigger than 4
+
+
+
+	//sorted.print();
+	//cout << sorted.size() << endl;
 }
