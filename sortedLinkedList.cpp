@@ -66,34 +66,77 @@ void SortedLinkedList::push(int x) {
 		return;
 	}
 
-	//cout<<p->x<<endl;
 	//jesli lista nie jest pusta
 	if(p != NULL) {
-		if(p->x < x) {
-			n->x = x;
-			head = n;
-		}
+		// if(p->x < x) {
+		// 	n->x = x;
+		// 	head = n;
+		// }
+
+		bool flag = 0;
 		while(p->next) {
 			if(p->x >= x){
-				n->x = p->x;
+				//n->prev = p->prev;
 			 	n->prev = p->prev;
 				p->prev->next = n;
 			 	p->prev = n;
 			 	n->next = p;
-
-				cout<<"znaleziono: "<<p->x<<endl;
-			//	break;
+			 	flag =1;
+				break;
 
 			}
-			cout<<p->x<<" "<<x<<endl;
-
 			p=p->next; // do konca lisy
 		}
+
+		if(flag == 0)
+		{
+			p->next = n;
+			n->prev = p;
+			n->next = nullptr;
+		}
+
 	}
 }
 
-int SortedLinkedList::pop() {
+int SortedLinkedList::pop() 
+{
+	node *p;
+	p = head;
+	head = p->next;
+	int temp = p->x;
+	delete p;
+	return temp;
+}
 
+int SortedLinkedList::erase(int i)
+{
+	node *p;
+	p = head;
+
+	for(int j=0;j<i;j++)
+	{
+		p = p->next;
+	}
+
+	if(p->next)
+		p->next->prev = p->prev;
+	p->prev->next = p->next;
+	int temp = p->x;
+	delete p;
+	return temp;
+}
+
+void SortedLinkedList::remove(int x) {
+	node *p;
+	p = head;
+
+	int counter = 1;
+	while(p->next) {
+		if(p->x == x)
+			erase(counter);
+		counter++;
+		p=p->next;
+	}
 }
 
 void SortedLinkedList::print() {
@@ -119,12 +162,6 @@ int SortedLinkedList::size(){
 int main() {
 
 	SortedLinkedList sorted;
-
-	// sorted.push(10);
-	// sorted.push(20);
-	// sorted.push(2443);
-	// sorted.print();
-	// cout << sorted.size() << endl;
 
 	// build model to test our methods.
 
@@ -152,7 +189,6 @@ int main() {
 
 	cout<<"model created succesfully!"<<endl;
 
-	//cout<<sorted.head->x<<endl;
 
 	cout<<"data writing:"<<endl;
 
@@ -167,10 +203,15 @@ int main() {
 	cout<<"data writing succesfull!"<<endl;
 	//test for our function
 
-	sorted.push(4); // should find 5 becasue 5 is first bigger than 4
 
-
-
-	//sorted.print();
-	//cout << sorted.size() << endl;
+	sorted.print();
+	cout << "~~~~~~~~~~~~~~~~" << endl;
+	sorted.push(4);
+	sorted.push(4);
+	sorted.push(4);
+	sorted.print();
+	cout << "~~~~~~~~~~~~~~~~" << endl;
+	sorted.remove(4);
+	cout << "~~~~~~~~~~~~~~~~" << endl;
+	sorted.print();
 }
