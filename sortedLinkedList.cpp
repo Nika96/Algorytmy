@@ -32,7 +32,7 @@ public:
     }
     int size(); // Zwraca liczbę elementów w liście
     void remove(int x); // Usuwa wszystkie elementy równe 'x'
-    static SortedLinkedList merge(const SortedLinkedList&a, const SortedLinkedList& b);
+    static SortedLinkedList merge(const SortedLinkedList& a, const SortedLinkedList& b);
     void unique(); // Usuwa sąsiadujące duplikaty
     void print(); // Wypisuje elementy listy w porządku rosnącym
 };
@@ -68,22 +68,15 @@ void SortedLinkedList::push(int x) {
 
 	//jesli lista nie jest pusta
 	if(p != NULL) {
-		// if(p->x < x) {
-		// 	n->x = x;
-		// 	head = n;
-		// }
-
 		bool flag = 0;
 		while(p->next) {
 			if(p->x >= x){
-				//n->prev = p->prev;
 			 	n->prev = p->prev;
 				p->prev->next = n;
 			 	p->prev = n;
 			 	n->next = p;
 			 	flag =1;
 				break;
-
 			}
 			p=p->next; // do konca lisy
 		}
@@ -94,7 +87,6 @@ void SortedLinkedList::push(int x) {
 			n->prev = p;
 			n->next = nullptr;
 		}
-
 	}
 }
 
@@ -130,13 +122,30 @@ void SortedLinkedList::remove(int x) {
 	node *p;
 	p = head;
 
-	int counter = 1;
+	int counter = 0;
 	while(p->next) {
-		if(p->x == x)
+		if(p->x == x) {
 			erase(counter);
+			counter--;
+		}
 		counter++;
 		p=p->next;
 	}
+}
+
+void SortedLinkedList::unique() {
+	node *p;
+	p = head;
+	int counter = 0;
+	while(p->next) {
+		if(p->x == p->next->x) {
+			erase(counter);
+			counter--;			
+		}
+		counter++;
+		p=p->next;
+	}
+
 }
 
 void SortedLinkedList::print() {
@@ -159,59 +168,30 @@ int SortedLinkedList::size(){
     return c;
 }
 
+SortedLinkedList SortedLinkedList::merge(const SortedLinkedList& a, const SortedLinkedList& b)
+{
+	//a.push(0);
+}
+
 int main() {
 
-	SortedLinkedList sorted;
+	SortedLinkedList sorted1, sorted2;
 
-	// build model to test our methods.
+	sorted1.push(1);
+	sorted1.push(2);
+	sorted1.push(15);
+	sorted1.push(7);
+	sorted1.push(7);
+	sorted1.push(3);
+	sorted1.print();
 
+	cout << "~~~~~~~~~~~~~~~~~~~~~~" << endl;
+	
+	sorted2.push(23);
+	sorted2.push(1);
+	sorted2.push(8);
+	sorted2.push(7);
+	sorted2.print();
 
-	SortedLinkedList::node *a = new SortedLinkedList::node;
-	SortedLinkedList::node *b = new SortedLinkedList::node;
-	SortedLinkedList::node *c = new SortedLinkedList::node;
-	SortedLinkedList::node *d = new SortedLinkedList::node;
-	SortedLinkedList::node *e = new SortedLinkedList::node;
-	SortedLinkedList::node *f = new SortedLinkedList::node;
-
-	a->prev = nullptr;
-	a->next = b;
-	sorted.head = a;
-	b->prev = a;
-	b->next = c;
-	c->prev = b;
-	c->next = d;
-	d->prev = c;
-	d->next = e;
-	e->prev = d;
-	e->next = f;
-	f->prev = e;
-	f->next = nullptr;
-
-	cout<<"model created succesfully!"<<endl;
-
-
-	cout<<"data writing:"<<endl;
-
-	a->x = 1;
-	b->x = 2;
-	c->x = 3;
-	d->x = 4;
-	e->x = 5;
-	f->x = 6;
-	// end of model
-
-	cout<<"data writing succesfull!"<<endl;
-	//test for our function
-
-
-	sorted.print();
-	cout << "~~~~~~~~~~~~~~~~" << endl;
-	sorted.push(4);
-	sorted.push(4);
-	sorted.push(4);
-	sorted.print();
-	cout << "~~~~~~~~~~~~~~~~" << endl;
-	sorted.remove(4);
-	cout << "~~~~~~~~~~~~~~~~" << endl;
-	sorted.print();
+	SortedLinkedList::merge(sorted1, sorted2);
 }
