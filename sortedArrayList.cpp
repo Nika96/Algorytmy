@@ -82,6 +82,7 @@ int SortedArrayList::erase(int i) {
 	for(int z = i; z <= size(); z++) {
 		//cout << i << endl;
 		elements[z] = elements[z+1];
+		elements[size()] = -1;
 	}
 }
 
@@ -104,17 +105,17 @@ void SortedArrayList::remove(int x) {
 
 //usuwa sasiadujace duplikaty
 void SortedArrayList::unique() {
-	
-
+	for(int i = 0; i<size(); i++ ) {
+		if(elements[i] == elements[i+1])  {
+			//cout << i << endl;
+			erase(i);
+			i--;
+		}
+	}
 } 
 
 int main() {
-	SortedArrayList sorted, sorted2;
-
-	/*sorted2.elements[0] = 4;
-	sorted2.elements[1] = 2;
-	sorted2.elements[2] = 6;
-	cout << sorted2.size() << endl;*/
+	SortedArrayList sorted;
 
 	sorted.push(30);
 	sorted.push(76);
@@ -124,12 +125,14 @@ int main() {
 	sorted.push(324);
 	sorted.push(324);
 	sorted.push(324);
+	sorted.push(324);
+	sorted.push(324);
 
 	sorted.print(); 
 
 	//cout <<sorted.size()<< endl;
 	cout << "#######################" << endl;
-	sorted.remove(324);
+	sorted.unique();
 	sorted.print();	
 
 }
