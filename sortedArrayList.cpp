@@ -4,10 +4,10 @@
 using namespace std;
 
 class SortedArrayList {
+public:
 	
 	int elements[maxlength];
 		
-public:
 	SortedArrayList();
     void push(int x);   // Wstawia element 'x'
     int pop();          // Zwraca i usuwa pierwszy (najmniejszy) element
@@ -43,37 +43,22 @@ void SortedArrayList::print() {
 }
 
 void SortedArrayList::push(int x) {
-
-	int siz;
-	siz = size();
-	//lista jest pusta
-/*	if(elements[0] == -1) {
-		elements[0] = x;
-	} 
-*/
 	for(int i = 0; i<maxlength; i++) {
-		if(elements[0] == -1) {
-			elements[0] = x;
-		}
-
-		if(elements[i] != -1) {
-			if(elements[i] >= x) {
-				//gdy znajduje wartosc >=x to przesuwam wszystkie elementy w tablicy w prawo
-				for(int z = i; z<size(); z++) {
-					elements [z+1] = elements[z];
-				}
+		if(x >= elements[i]) {
+			if(elements[i] == -1) {
 				elements[i] = x;
-			}
-			//przypadek gry pierwsza wartosc w tablicy jest mniejsza od x
-			if(elements[i] < x && elements[i] != -1) {
-				for(int z=1; z<size(); z++) {
-					elements[z+1] = elements[z];
-				}
-				elements[0] = x;
+				break;
 			}
 		}
-		//cout << elements[i] << " i = " << i << endl;
+		else {
+			for(int z = size(); z>= i; z--) {
+				elements[z+1] = elements[z];
+			}
+			elements[i] = x;
+			break;
+		}
 	}
+
 }
 /*
 int SortedArrayList::pop() {
@@ -153,13 +138,24 @@ void SortedArrayList::unique() {
 } */
 
 int main() {
-	SortedArrayList sorted;
+	SortedArrayList sorted, sorted2;
+
+	/*sorted2.elements[0] = 4;
+	sorted2.elements[1] = 2;
+	sorted2.elements[2] = 6;
+	cout << sorted2.size() << endl;*/
 
 	sorted.push(30);
+//	sorted.print();
 	sorted.push(76);
-	sorted.push(8); 
-	cout <<sorted.size()<< endl;
+//	sorted.print();
+	sorted.push(8);
+	sorted.push(0);
+	sorted.push(324);
+	sorted.print(); 
+
+	//cout <<sorted.size()<< endl;
 	cout << "#######################" << endl;
-	sorted.print();
+	
 
 }
