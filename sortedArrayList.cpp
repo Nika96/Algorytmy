@@ -1,5 +1,7 @@
 #include "sortedArrayList.h"
 
+#define cc const_cast<SortedArrayList&>
+
 SortedArrayList::SortedArrayList() {
 	for(int i = 0; i<maxlength; i++)
 		elements[i] = -1;
@@ -64,6 +66,7 @@ int SortedArrayList::erase(int i) {
 		elements[z] = elements[z+1];
 		elements[size()] = -1;
 	}
+	return temp;
 }
 
 int SortedArrayList::find(int x) {
@@ -92,28 +95,20 @@ void SortedArrayList::unique() {
 			i--;
 		}
 	}
-} 
+}
 
-SortedArrayList SortedArrayList::merge( SortedArrayList& a,  SortedArrayList& b) {
-	
+SortedArrayList SortedArrayList::merge(const SortedArrayList& a,   const SortedArrayList& b) {
+
 	SortedArrayList c;
-	//c.push(2);
-	
-	int temp =0;
-	for(int i = 0; i<a.size(); i++) {
-		temp = a.pop();
-		cout << "temp w a =" << temp << endl;
-		c.push(temp);
+
+	int max = cc(a).size();
+	for(int i = 0; i<max; i++) {
+		c.push(cc(a).pop());
 	}
 
-	cout<<a.size();
-	cout<<b.size();
-	cout<<"==========="<<endl;
-	for(int i = 0; i<b.size(); i++) {
-		temp = b.pop();
-		cout << "temp w b =" << temp << endl;
-		c.push(temp);
+	max = cc(b).size();
+	for(int i = 0; i<max; i++) {
+		c.push(cc(b).pop());
 	}
-	c.print();
 	return c;
 }
