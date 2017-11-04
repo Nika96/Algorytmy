@@ -32,7 +32,7 @@ public:
     }
     int size(); // Zwraca liczbę elementów w liście
     void remove(int x); // Usuwa wszystkie elementy równe 'x'
-    static SortedLinkedList merge(const SortedLinkedList&a, const SortedLinkedList& b);
+    static SortedLinkedList merge(const SortedLinkedList& a, const SortedLinkedList& b);
     void unique(); // Usuwa sąsiadujące duplikaty
     void print(); // Wypisuje elementy listy w porządku rosnącym
 };
@@ -55,11 +55,12 @@ void SortedLinkedList::push(int x) {
 	node *p, *n;
 	n = new node;
 	n->x = x; //przechowuje podana wartosc
+
 	p = head;
 
 
 	//gdy lista jest pusta
-	if(n->next == NULL && n->prev == NULL) {
+	if(p->next == NULL && p->prev == NULL) {
 		n->x = x;
 		head = n;
 		return;
@@ -67,22 +68,91 @@ void SortedLinkedList::push(int x) {
 
 	//jesli lista nie jest pusta
 	if(p != NULL) {
+		bool flag = 0;
 		while(p->next) {
 			if(p->x >= x){
-				n->prev = p->prev;
+			 	n->prev = p->prev;
 				p->prev->next = n;
-				p->prev = n;
-				n->next = p;
+			 	p->prev = n;
+			 	n->next = p;
+			 	flag =1;
 				break;
 			}
 			p=p->next; // do konca lisy
 		}
+
+		if(flag == 0)
+		{
+			p->next = n;
+			n->prev = p;
+			n->next = nullptr;
+		}
+	}
+}
+
+int SortedLinkedList::pop()
+{
+	node *p;
+	p = head;
+	head = p->next;
+	int temp = p->x;
+	delete p;
+	return temp;
+}
+
+int SortedLinkedList::erase(int i)
+{
+	node *p;
+	p = head;
+
+	for(int j=0;j<i;j++)
+	{
+		p = p->next;
 	}
 
+<<<<<<< HEAD
 	//this code will run if we won't find bigger
 	p->next = n;
 	n->prev = p;
 	n->next = nullptr;
+=======
+	if(p->next)
+		p->next->prev = p->prev;
+	p->prev->next = p->next;
+	int temp = p->x;
+	delete p;
+	return temp;
+}
+
+void SortedLinkedList::remove(int x) {
+	node *p;
+	p = head;
+
+	int counter = 0;
+	while(p->next) {
+		if(p->x == x) {
+			erase(counter);
+			counter--;
+		}
+		counter++;
+		p=p->next;
+	}
+}
+
+void SortedLinkedList::unique() {
+	node *p;
+	p = head;
+	int counter = 0;
+	while(p->next) {
+		if(p->x == p->next->x) {
+			erase(counter);
+			counter--;
+		}
+		counter++;
+		p=p->next;
+	}
+
+>>>>>>> 07cd4eaaded7f793441fca0aae30cc68e879d682
 }
 
 void SortedLinkedList::print() {
@@ -105,6 +175,7 @@ int SortedLinkedList::size(){
     return c;
 }
 
+<<<<<<< HEAD
 int main() {
 
 	SortedLinkedList sorted;
@@ -153,8 +224,32 @@ int main() {
 	sorted.push(12); // should find 5 becasue 5 is first bigger than 4
 	sorted.print();
 
+=======
+SortedLinkedList SortedLinkedList::merge(const SortedLinkedList& a, const SortedLinkedList& b)
+{
+	//a.push(0);
+}
+>>>>>>> 07cd4eaaded7f793441fca0aae30cc68e879d682
 
+int main() {
 
-	//sorted.print();
-	//cout << sorted.size() << endl;
+	SortedLinkedList sorted1, sorted2;
+
+	sorted1.push(1);
+	sorted1.push(2);
+	sorted1.push(15);
+	sorted1.push(7);
+	sorted1.push(7);
+	sorted1.push(3);
+	sorted1.print();
+
+	cout << "~~~~~~~~~~~~~~~~~~~~~~" << endl;
+
+	sorted2.push(23);
+	sorted2.push(1);
+	sorted2.push(8);
+	sorted2.push(7);
+	sorted2.print();
+
+	SortedLinkedList::merge(sorted1, sorted2);
 }

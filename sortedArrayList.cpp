@@ -1,14 +1,14 @@
 #include <iostream>
 #include <algorithm>
-#include <vector>
+#define maxlength 10
 using namespace std;
 
-const int maxlength = 50000;
-
 class SortedArrayList {
-	vector <int> elements;
+	
+	int elements[maxlength];
 		
-	public:
+public:
+	SortedArrayList();
     void push(int x);   // Wstawia element 'x'
     int pop();          // Zwraca i usuwa pierwszy (najmniejszy) element
     int erase(int i);   // Usuwa element na pozycji 'i' i zwraca jego wartość
@@ -20,43 +20,77 @@ class SortedArrayList {
     void print();       // Wypisuje elementy listy w porządku rosnącym
 };
 
+SortedArrayList::SortedArrayList() {
+	for(int i = 0; i<maxlength; i++)
+		elements[i] = -1;
+}
 
 int SortedArrayList::size() {
-	int s = 0;
-	s =	elements.size();
 
-	return s;
+	int counter =0;
+	for(int i=0; i<maxlength; i++) {
+		if(elements[i] != -1)
+			counter++;
+	}
+	return counter;
 }
 
 void SortedArrayList::print() {
-	for(vector<int>::iterator it = elements.begin(); it != elements.end(); ++it)
-		cout << *it << endl;
+	for(int i=0; i<size(); i++) {
+		if(elements[i] != -1)
+			cout<<elements[i]<<endl;
+	}
 }
 
 void SortedArrayList::push(int x) {
 
-	elements.push_back ( x );
+	int siz;
+	siz = size();
+	//lista jest pusta
+/*	if(elements[0] == -1) {
+		elements[0] = x;
+	} 
+*/
+	for(int i = 0; i<maxlength; i++) {
+		if(elements[0] == -1) {
+			elements[0] = x;
+		}
 
-	//funkcja sortujaca sort() 
-	sort(elements.begin(), elements.begin()+elements.size());
+		if(elements[i] != -1) {
+			if(elements[i] >= x) {
+				//gdy znajduje wartosc >=x to przesuwam wszystkie elementy w tablicy w prawo
+				for(int z = i; z<size(); z++) {
+					elements [z+1] = elements[z];
+				}
+				elements[i] = x;
+			}
+			//przypadek gry pierwsza wartosc w tablicy jest mniejsza od x
+			if(elements[i] < x && elements[i] != -1) {
+				for(int z=1; z<size(); z++) {
+					elements[z+1] = elements[z];
+				}
+				elements[0] = x;
+			}
+		}
+		//cout << elements[i] << " i = " << i << endl;
+	}
 }
-
+/*
 int SortedArrayList::pop() {
 	//temp to najmniejszy element tablicy, bo jest posortowana
 	int temp = elements[0];
-	if(elements.size()>0) {
-		for(int i=0; i<elements.size();i++) {
+	if(size()>0) {
+		for(int i=0; i<size();i++) {
 			elements[i] = elements[i+1];
 		}
-		int s = elements.size();
-		s = elements.size() -1;
-		elements.pop_back();
+		int s = size();
+		s = size() -1;
 		return temp;
 	}
 	else
 		return -1;
-}
-
+}*/
+/*
 //usuwa element na pozycji "i" i zwraca jego wartosc
 int SortedArrayList::erase(int i) {
 	elements.erase(elements.begin() + i);
@@ -116,21 +150,16 @@ void SortedArrayList::unique() {
 		}
 	}
 
-}
+} */
 
 int main() {
 	SortedArrayList sorted;
 
-	sorted.push(2);
-	sorted.push(2);
-	sorted.push(2);
-	sorted.push(3);
-	sorted.push(3);
-	sorted.push(3);
-	cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`" << endl;
-//	sorted.remove(345);
-	sorted.unique();
+	sorted.push(30);
+	sorted.push(76);
+	sorted.push(8); 
+	cout <<sorted.size()<< endl;
+	cout << "#######################" << endl;
 	sorted.print();
-	cout << "SIZE " << sorted.size() << endl;
 
 }
