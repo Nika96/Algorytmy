@@ -1,24 +1,4 @@
-#include <iostream>
-#include <algorithm>
-#define maxlength 10
-using namespace std;
-
-class SortedArrayList {
-public:
-	
-	int elements[maxlength];
-		
-	SortedArrayList();
-    void push(int x);   // Wstawia element 'x'
-    int pop();          // Zwraca i usuwa pierwszy (najmniejszy) element
-    int erase(int i);   // Usuwa element na pozycji 'i' i zwraca jego wartość
-    int find(int x);    // Zwraca pozycję elementu o wartości 'x' lub -1 gdy nie znaleziono
-    int size();         // Zwraca liczbę elementów w liście
-    void remove(int x); // Usuwa wszystkie elementy równe 'x'
-    static SortedArrayList merge(const SortedArrayList& a, const SortedArrayList& b);  // Scala dwie posortowane listy i zwraca posortowaną listę
-    void unique();      // Usuwa sąsiadujące duplikaty
-    void print();       // Wypisuje elementy listy w porządku rosnącym
-};
+#include "sortedArrayList.h"
 
 SortedArrayList::SortedArrayList() {
 	for(int i = 0; i<maxlength; i++)
@@ -114,25 +94,26 @@ void SortedArrayList::unique() {
 	}
 } 
 
-int main() {
-	SortedArrayList sorted;
+SortedArrayList SortedArrayList::merge( SortedArrayList& a,  SortedArrayList& b) {
+	
+	SortedArrayList c;
+	//c.push(2);
+	
+	int temp =0;
+	for(int i = 0; i<a.size(); i++) {
+		temp = a.pop();
+		cout << "temp w a =" << temp << endl;
+		c.push(temp);
+	}
 
-	sorted.push(30);
-	sorted.push(76);
-	sorted.push(8);
-	sorted.push(0);
-	sorted.push(324);
-	sorted.push(324);
-	sorted.push(324);
-	sorted.push(324);
-	sorted.push(324);
-	sorted.push(324);
-
-	sorted.print(); 
-
-	//cout <<sorted.size()<< endl;
-	cout << "#######################" << endl;
-	sorted.unique();
-	sorted.print();	
-
+	cout<<a.size();
+	cout<<b.size();
+	cout<<"==========="<<endl;
+	for(int i = 0; i<b.size(); i++) {
+		temp = b.pop();
+		cout << "temp w b =" << temp << endl;
+		c.push(temp);
+	}
+	c.print();
+	return c;
 }
