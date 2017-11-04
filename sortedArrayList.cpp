@@ -52,7 +52,7 @@ void SortedArrayList::push(int x) {
 	} 
 */
 	for(int i = 0; i<maxlength; i++) {
-		if(elements[i] == -1) {
+		if(elements[0] == -1) {
 			elements[0] = x;
 		}
 
@@ -60,19 +60,19 @@ void SortedArrayList::push(int x) {
 			if(elements[i] >= x) {
 				//gdy znajduje wartosc >=x to przesuwam wszystkie elementy w tablicy w prawo
 				for(int z = i; z<size(); z++) {
-					elements [z] = elements[z+1];
+					elements [z+1] = elements[z];
 				}
 				elements[i] = x;
 			}
 			//przypadek gry pierwsza wartosc w tablicy jest mniejsza od x
 			if(elements[i] < x && elements[i] != -1) {
 				for(int z=1; z<size(); z++) {
-					elements[z] = elements[z+1];
+					elements[z+1] = elements[z];
 				}
 				elements[0] = x;
 			}
 		}
-		cout << elements[i] << " i = " << i << endl;
+		//cout << elements[i] << " i = " << i << endl;
 	}
 }
 /*
