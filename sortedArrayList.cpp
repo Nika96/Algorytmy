@@ -78,11 +78,15 @@ int SortedArrayList::pop() {
 
 //usuwa element na pozycji "i" i zwraca jego wartosc
 int SortedArrayList::erase(int i) {
-
+	int temp = elements[i];
+	for(int z = i; z <= size(); z++) {
+		//cout << i << endl;
+		elements[z] = elements[z+1];
+	}
 }
-/*
+
 int SortedArrayList::find(int x) {
-	for(int i=0; i<elements.size(); i++) {
+	for(int i=0; i<size(); i++) {
 		if(elements[i] == x) {
 			return i;
 		}
@@ -92,50 +96,17 @@ int SortedArrayList::find(int x) {
 
 //usuwa wszystkie elementy rowne x
 void SortedArrayList::remove(int x) {
-	int counter = 1;
-	for(int i = 0; i<elements.size(); i++) {
-		if(elements[i] == elements[i+1]) {
-			counter++;
-		}
-	}
-	cout << "Ilosc powtorzen = " << counter << endl;
 
-	for(int i=0; i<elements.size(); i++) {
-		if(elements[i] == elements[i+1]) {
-			elements.erase(elements.begin()+i, elements.begin()+i+counter);
-		}
+	while(find(x) != -1) {
+		erase(find(x));
 	}
 }
 
 //usuwa sasiadujace duplikaty
 void SortedArrayList::unique() {
 	
-	int counter = 1;
-	for(int i = 0; i<elements.size(); i++) {
-		if(elements[i] == elements[i+1]) {
-			counter++;
-		}
-	}
-	cout << "Ilosc powtorzen = " << counter << endl;
 
-	//ilosc powtorzen jest parzysta - usuwa wszyskie powtorzenia w liscie
-	if(counter%2 == 0) {
-		for(int i=0; i<elements.size(); i++) {
-			if(elements[i] == elements[i+1]) {
-				elements.erase(elements.begin()+i, elements.begin()+i+counter);
-			}
-		}		
-	}
-	//ilosc powtorzen jest nieparzysta - zostawia jedna wartosc powtorzona w liscie
-	if(counter%2 == 1) {
-		for(int i=0; i<elements.size(); i++) {
-			if(elements[i] == elements[i+1]) {
-				elements.erase(elements.begin()+i, elements.begin()+i+counter-1);
-			}
-		}
-	}
-
-} */
+} 
 
 int main() {
 	SortedArrayList sorted, sorted2;
@@ -146,17 +117,19 @@ int main() {
 	cout << sorted2.size() << endl;*/
 
 	sorted.push(30);
-//	sorted.print();
 	sorted.push(76);
-//	sorted.print();
 	sorted.push(8);
 	sorted.push(0);
 	sorted.push(324);
+	sorted.push(324);
+	sorted.push(324);
+	sorted.push(324);
+
 	sorted.print(); 
 
 	//cout <<sorted.size()<< endl;
 	cout << "#######################" << endl;
-	sorted.pop();
+	sorted.remove(324);
 	sorted.print();	
 
 }
