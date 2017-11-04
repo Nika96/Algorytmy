@@ -1,41 +1,6 @@
-#include<iostream>
-using namespace std;
+#include "sortedLinkedList.h"
 
-class SortedLinkedList {
-public:
-	struct node {       // Zagnieżdżona klasa węzła
-        int x;          // Element przechowywany przez węzeł listy
-        node* next;     // Wskaźnik do kolejnego węzła
-        node* prev;     // Wskaźnik do poprzedniego węzła
-    };
-
-    node* head;        // Wskaźnik do pierwszego węzła
-   // int size;           // Ew. rozmiar listy
-
-    SortedLinkedList();
-    ~SortedLinkedList();
-    void push(int x); // Wstawia element 'x'
-    int pop(); // Zwraca i usuwa pierwszy (najmniejszy) element
-    int erase(int i); // Usuwa element na pozycji 'i' i zwraca jego wartość
-    node *find(int x) {
-    	node *tmp = head;
-
-        while (tmp!=nullptr) //dopóki tmp nie wskazuje na ostatni rekord listy}
-        {
-            if (tmp->x == x)
-                return tmp;
-
-            tmp=tmp->next;
-        }
-        cout<<"nie istnieje"<<endl;
-        return nullptr; //zwraca ENDL, jeśli wcześniej nie został znaleziony rekord z elementem x
-    }
-    int size(); // Zwraca liczbę elementów w liście
-    void remove(int x); // Usuwa wszystkie elementy równe 'x'
-    //static SortedLinkedList merge(const SortedLinkedList& a, const SortedLinkedList& b);
-    void unique(); // Usuwa sąsiadujące duplikaty
-    void print(); // Wypisuje elementy listy w porządku rosnącym
-};
+#define cc const_cast<SortedLinkedList&> //wytrych
 
 SortedLinkedList::SortedLinkedList(){
 	head = nullptr;
@@ -55,8 +20,8 @@ void SortedLinkedList::push(int x) {
 	node *p, *n;
 
 	p = head;
-
-	cout<<"test1"<<endl;
+	cout<<"test "<<x<<endl;
+	//cout<<"test1"<<endl;
 	//gdy lista jest pusta
 	if(p == nullptr) {
 		p = new node;
@@ -77,7 +42,8 @@ void SortedLinkedList::push(int x) {
 			if(p->x >= x){
 				cout<<"test"<<endl;
 			 	n->prev = p->prev;
-				p->prev->next = n;
+				if(p->prev)
+					p->prev->next = n;
 			 	p->prev = n;
 			 	n->next = p;
 			 	flag =1;
@@ -115,12 +81,6 @@ int SortedLinkedList::erase(int i)
 		p = p->next;
 	}
 
-// <<<<<<< HEAD
-// 	//this code will run if we won't find bigger
-// 	p->next = n;
-// 	n->prev = p;
-// 	n->next = nullptr;
-// =======
 	if(p->next)
 		p->next->prev = p->prev;
 	p->prev->next = p->next;
@@ -180,30 +140,17 @@ int SortedLinkedList::size(){
     return c;
 }
 
+SortedLinkedList SortedLinkedList::merge(const SortedLinkedList& a, const SortedLinkedList& b)
+{
+	SortedLinkedList c;
+	int max = cc(a).size();
+	for(int i = 0; i<max; i++) {
+		c.push(cc(a).pop());
+	}
 
-
-int main() {
-
-	SortedLinkedList sorted1, sorted2;
-
-	sorted1.push(5);
-	sorted1.print();
-	sorted1.push(4);
-	sorted1.print();
-	sorted1.push(3);
-	sorted1.print();
-	sorted1.push(2);
-	sorted1.push(1);
-	sorted1.push(0);
-	sorted1.print();
-
-	cout << "~~~~~~~~~~~~~~~~~~~~~~" << endl;
-
-	sorted2.push(23);
-	sorted2.push(1);
-	sorted2.push(8);
-	sorted2.push(7);
-	sorted2.print();
-
-	//SortedLinkedList::merge(sorted1, sorted2);
+	max = cc(b).size();
+	for(int i = 0; i<max; i++) {
+		c.push(cc(b).pop());
+	}
+	return c;
 }
