@@ -60,7 +60,7 @@ void SortedArrayList::push(int x) {
 	}
 
 }
-/*
+
 int SortedArrayList::pop() {
 	//temp to najmniejszy element tablicy, bo jest posortowana
 	int temp = elements[0];
@@ -74,13 +74,13 @@ int SortedArrayList::pop() {
 	}
 	else
 		return -1;
-}*/
-/*
-//usuwa element na pozycji "i" i zwraca jego wartosc
-int SortedArrayList::erase(int i) {
-	elements.erase(elements.begin() + i);
 }
 
+//usuwa element na pozycji "i" i zwraca jego wartosc
+int SortedArrayList::erase(int i) {
+
+}
+/*
 int SortedArrayList::find(int x) {
 	for(int i=0; i<elements.size(); i++) {
 		if(elements[i] == x) {
@@ -156,6 +156,7 @@ int main() {
 
 	//cout <<sorted.size()<< endl;
 	cout << "#######################" << endl;
-	
+	sorted.pop();
+	sorted.print();	
 
 }
