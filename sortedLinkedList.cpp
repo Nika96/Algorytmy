@@ -32,13 +32,13 @@ public:
     }
     int size(); // Zwraca liczbę elementów w liście
     void remove(int x); // Usuwa wszystkie elementy równe 'x'
-    static SortedLinkedList merge(const SortedLinkedList& a, const SortedLinkedList& b);
+    //static SortedLinkedList merge(const SortedLinkedList& a, const SortedLinkedList& b);
     void unique(); // Usuwa sąsiadujące duplikaty
     void print(); // Wypisuje elementy listy w porządku rosnącym
 };
 
 SortedLinkedList::SortedLinkedList(){
-	head = NULL;
+	head = nullptr;
 }
 
 SortedLinkedList::~SortedLinkedList(){
@@ -53,24 +53,29 @@ SortedLinkedList::~SortedLinkedList(){
 void SortedLinkedList::push(int x) {
 
 	node *p, *n;
-	n = new node;
-	n->x = x; //przechowuje podana wartosc
 
 	p = head;
 
-
+	cout<<"test1"<<endl;
 	//gdy lista jest pusta
-	if(p->next == NULL && p->prev == NULL) {
-		n->x = x;
-		head = n;
+	if(p == nullptr) {
+		p = new node;
+		p->x = x;
+		p->next = nullptr;
+		p->prev = nullptr;
+		head = p;
+		//head = n;
 		return;
 	}
 
+	n = new node;
+	n->x = x; //przechowuje podana wartosc
 	//jesli lista nie jest pusta
-	if(p != NULL) {
+	if(p != nullptr) {
 		bool flag = 0;
 		while(p->next) {
 			if(p->x >= x){
+				cout<<"test"<<endl;
 			 	n->prev = p->prev;
 				p->prev->next = n;
 			 	p->prev = n;
@@ -110,12 +115,12 @@ int SortedLinkedList::erase(int i)
 		p = p->next;
 	}
 
-<<<<<<< HEAD
-	//this code will run if we won't find bigger
-	p->next = n;
-	n->prev = p;
-	n->next = nullptr;
-=======
+// <<<<<<< HEAD
+// 	//this code will run if we won't find bigger
+// 	p->next = n;
+// 	n->prev = p;
+// 	n->next = nullptr;
+// =======
 	if(p->next)
 		p->next->prev = p->prev;
 	p->prev->next = p->next;
@@ -152,7 +157,7 @@ void SortedLinkedList::unique() {
 		p=p->next;
 	}
 
->>>>>>> 07cd4eaaded7f793441fca0aae30cc68e879d682
+// >>>>>>> 07cd4eaaded7f793441fca0aae30cc68e879d682
 }
 
 void SortedLinkedList::print() {
@@ -175,72 +180,21 @@ int SortedLinkedList::size(){
     return c;
 }
 
-<<<<<<< HEAD
-int main() {
 
-	SortedLinkedList sorted;
-
-	// build model to test our methods.
-
-
-	SortedLinkedList::node *a = new SortedLinkedList::node;
-	SortedLinkedList::node *b = new SortedLinkedList::node;
-	SortedLinkedList::node *c = new SortedLinkedList::node;
-	SortedLinkedList::node *d = new SortedLinkedList::node;
-	SortedLinkedList::node *e = new SortedLinkedList::node;
-	SortedLinkedList::node *f = new SortedLinkedList::node;
-
-	a->prev = nullptr;
-	a->next = b;
-	sorted.head = a;
-	b->prev = a;
-	b->next = c;
-	c->prev = b;
-	c->next = d;
-	d->prev = c;
-	d->next = e;
-	e->prev = d;
-	e->next = f;
-	f->prev = e;
-	f->next = nullptr;
-
-	cout<<"model created succesfully!"<<endl;
-
-	//cout<<sorted.head->x<<endl;
-
-	cout<<"data writing:"<<endl;
-
-	a->x = 1;
-	b->x = 2;
-	c->x = 3;
-	d->x = 4;
-	e->x = 5;
-	f->x = 6;
-	// end of model
-
-	cout<<"data writing succesfull!"<<endl;
-	//test for our function
-	sorted.print();
-	sorted.push(12); // should find 5 becasue 5 is first bigger than 4
-	sorted.print();
-
-=======
-SortedLinkedList SortedLinkedList::merge(const SortedLinkedList& a, const SortedLinkedList& b)
-{
-	//a.push(0);
-}
->>>>>>> 07cd4eaaded7f793441fca0aae30cc68e879d682
 
 int main() {
 
 	SortedLinkedList sorted1, sorted2;
 
-	sorted1.push(1);
-	sorted1.push(2);
-	sorted1.push(15);
-	sorted1.push(7);
-	sorted1.push(7);
+	sorted1.push(5);
+	sorted1.print();
+	sorted1.push(4);
+	sorted1.print();
 	sorted1.push(3);
+	sorted1.print();
+	sorted1.push(2);
+	sorted1.push(1);
+	sorted1.push(0);
 	sorted1.print();
 
 	cout << "~~~~~~~~~~~~~~~~~~~~~~" << endl;
@@ -251,5 +205,5 @@ int main() {
 	sorted2.push(7);
 	sorted2.print();
 
-	SortedLinkedList::merge(sorted1, sorted2);
+	//SortedLinkedList::merge(sorted1, sorted2);
 }

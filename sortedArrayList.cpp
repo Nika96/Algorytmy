@@ -4,9 +4,9 @@
 using namespace std;
 
 class SortedArrayList {
-	
+
 	int elements[maxlength];
-		
+
 public:
 	SortedArrayList();
     void push(int x);   // Wstawia element 'x'
@@ -49,7 +49,7 @@ void SortedArrayList::push(int x) {
 	//lista jest pusta
 /*	if(elements[0] == -1) {
 		elements[0] = x;
-	} 
+	}
 */
 	for(int i = 0; i<maxlength; i++) {
 		if(elements[0] == -1) {
@@ -124,7 +124,7 @@ void SortedArrayList::remove(int x) {
 
 //usuwa sasiadujace duplikaty
 void SortedArrayList::unique() {
-	
+
 	int counter = 1;
 	for(int i = 0; i<elements.size(); i++) {
 		if(elements[i] == elements[i+1]) {
@@ -139,7 +139,7 @@ void SortedArrayList::unique() {
 			if(elements[i] == elements[i+1]) {
 				elements.erase(elements.begin()+i, elements.begin()+i+counter);
 			}
-		}		
+		}
 	}
 	//ilosc powtorzen jest nieparzysta - zostawia jedna wartosc powtorzona w liscie
 	if(counter%2 == 1) {
@@ -157,7 +157,7 @@ int main() {
 
 	sorted.push(30);
 	sorted.push(76);
-	sorted.push(8); 
+	sorted.push(8);
 	cout <<sorted.size()<< endl;
 	cout << "#######################" << endl;
 	sorted.print();
