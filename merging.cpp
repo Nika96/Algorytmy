@@ -15,9 +15,9 @@ int main(int argc, char *argv[]) {
 
 		int l1, l2;
 
-		
+
 		cin>>l1;
-		cout<<l1<<endl;
+		//cout<<l1<<endl;
 		for(int i=0;i<l1;i++)
 		{
 			cin>>l2;
@@ -26,7 +26,8 @@ int main(int argc, char *argv[]) {
 			sl1.push(l2);
 		}
 
-		cout<<l1<<endl;
+		//cout<<l1<<endl;
+		cin>>l1;
 		for(int i=0;i<l1;i++)
 		{
 			cin>>l2;
@@ -53,14 +54,20 @@ int main(int argc, char *argv[]) {
 			sl2.push(rand());
 		}
 	}
-	
-	//sa3 = SortedArrayList::merge(sa1, sa2);
-	//sl3 = SortedLinkedList::merge(sl1, sl2);
 
+	sa3 = SortedArrayList::merge(sa1, sa2);
+	sl3 = SortedLinkedList::merge(sl1, sl2);
+
+	cout<<endl<<"sa3:"<<endl<<endl;
 	sa3.print();
+	cout<<endl<<"sl3:"<<endl<<endl;
 	sl3.print();
-	sa3.unique();
+
+	sa3.unique();//aaaaaaa
 	sl3.unique();
+
+	cout<<endl<<"sa3 unique:"<<endl<<endl;
 	sa3.print();
+	cout<<endl<<"sl3 unique:"<<endl<<endl;
 	sl3.print();
 }

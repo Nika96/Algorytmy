@@ -7,12 +7,7 @@ SortedLinkedList::SortedLinkedList(){
 }
 
 SortedLinkedList::~SortedLinkedList(){
-    node *tmp;
-    while(head!=nullptr){
-        tmp = head;
-        head = head->next;
-        delete tmp;
-    }
+
 }
 
 void SortedLinkedList::push(int x) {
@@ -20,7 +15,7 @@ void SortedLinkedList::push(int x) {
 	node *p, *n;
 
 	p = head;
-	cout<<"test "<<x<<endl;
+	//cout<<"test "<<x<<endl;
 	//cout<<"test1"<<endl;
 	//gdy lista jest pusta
 	if(p == nullptr) {
@@ -40,10 +35,12 @@ void SortedLinkedList::push(int x) {
 		bool flag = 0;
 		while(p->next) {
 			if(p->x >= x){
-				cout<<"test"<<endl;
+				//cout<<"test"<<endl;
 			 	n->prev = p->prev;
 				if(p->prev)
 					p->prev->next = n;
+				else
+					head = n;
 			 	p->prev = n;
 			 	n->next = p;
 			 	flag =1;
@@ -67,7 +64,7 @@ int SortedLinkedList::pop()
 	p = head;
 	head = p->next;
 	int temp = p->x;
-	delete p;
+	//delete p;
 	return temp;
 }
 
@@ -83,9 +80,10 @@ int SortedLinkedList::erase(int i)
 
 	if(p->next)
 		p->next->prev = p->prev;
-	p->prev->next = p->next;
+	if(p->prev)
+		p->prev->next = p->next;
 	int temp = p->x;
-	delete p;
+	//delete p;
 	return temp;
 }
 
@@ -110,6 +108,7 @@ void SortedLinkedList::unique() {
 	int counter = 0;
 	while(p->next) {
 		if(p->x == p->next->x) {
+			cout<<"counter:"<<counter<<endl;
 			erase(counter);
 			counter--;
 		}
