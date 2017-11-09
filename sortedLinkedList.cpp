@@ -4,6 +4,7 @@
 
 SortedLinkedList::SortedLinkedList(){
 	head = nullptr;
+	size=0;
 }
 
 SortedLinkedList::~SortedLinkedList(){
@@ -11,7 +12,7 @@ SortedLinkedList::~SortedLinkedList(){
 }
 
 void SortedLinkedList::push(int x) {
-
+	size++;
 	node *p, *n;
 
 	p = head;
@@ -65,11 +66,13 @@ int SortedLinkedList::pop()
 	head = p->next;
 	int temp = p->x;
 	//delete p;
+	size--;
 	return temp;
 }
 
 int SortedLinkedList::erase(int i)
 {
+	size--;
 	node *p;
 	p = head;
 
@@ -82,6 +85,12 @@ int SortedLinkedList::erase(int i)
 		p->next->prev = p->prev;
 	if(p->prev)
 		p->prev->next = p->next;
+
+	if(i==0)
+	{
+		head = p->next;
+	}
+
 	int temp = p->x;
 	//delete p;
 	return temp;
@@ -108,7 +117,7 @@ void SortedLinkedList::unique() {
 	int counter = 0;
 	while(p->next) {
 		if(p->x == p->next->x) {
-			cout<<"counter:"<<counter<<endl;
+			//cout<<"counter:"<<counter<<" size: "<<size<<endl;
 			erase(counter);
 			counter--;
 		}
@@ -128,7 +137,7 @@ void SortedLinkedList::print() {
     }
 }
 
-int SortedLinkedList::size(){
+/*int SortedLinkedList::size(){
     node* p;
     int c = 0;
     p = head;
@@ -137,19 +146,28 @@ int SortedLinkedList::size(){
         p = p->next; //p to jest kolejnym z listy
     }
     return c;
+}*/
+
+const int SortedLinkedList::getElement(const int i) const
+{
+	node *p;
+	p = head;
+	for(int j=0;j<i;j++)
+		p = p->next;
+	return p->x;
 }
 
 SortedLinkedList SortedLinkedList::merge(const SortedLinkedList& a, const SortedLinkedList& b)
 {
 	SortedLinkedList c;
-	int max = cc(a).size();
+	int max = a.size;
 	for(int i = 0; i<max; i++) {
-		c.push(cc(a).pop());
+		c.push(a.getElement(i));
 	}
 
-	max = cc(b).size();
+	max = b.size;
 	for(int i = 0; i<max; i++) {
-		c.push(cc(b).pop());
+		c.push(b.getElement(i));
 	}
 	return c;
 }
