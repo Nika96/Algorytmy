@@ -30,8 +30,10 @@ public:
         cout<<"nie istnieje"<<endl;
         return nullptr; //zwraca ENDL, jeśli wcześniej nie został znaleziony rekord z elementem x
     }
-    int size(); // Zwraca liczbę elementów w liście
+    //int size(); // Zwraca liczbę elementów w liście
+	int size;
     void remove(int x); // Usuwa wszystkie elementy równe 'x'
+	const int getElement(const int i) const;
     static SortedLinkedList merge(const SortedLinkedList& a, const SortedLinkedList& b);
     void unique(); // Usuwa sąsiadujące duplikaty
     void print(); // Wypisuje elementy listy w porządku rosnącym
